@@ -111,6 +111,11 @@ const ClassementTable = ({ clubs }) => {
           </TableRow>
         </TableHead>
         <TableBody>
+          {classement.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={9} align="center" my={2}>No data</TableCell>
+            </TableRow>
+          )}
           {classement.map((row, index) => (
             <TableRow key={index}>
               <TableCell align="left">{index + 1}</TableCell>

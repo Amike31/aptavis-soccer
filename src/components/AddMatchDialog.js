@@ -41,6 +41,12 @@ const AddMatchDialog = ({ open, onClose }) => {
       return;
     }
 
+    const isAllFilled = homeClubName && awayClubName && homeGoals && awayGoals;
+    if (!isAllFilled) {
+      setError("Please fill all fields");
+      return;
+    }
+
     try {
       await addDoc(collection(firestore, "matches"), {
         homeClubName,

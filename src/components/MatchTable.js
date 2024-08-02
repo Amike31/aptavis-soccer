@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
-import { collection, query, onSnapshot } from 'firebase/firestore';
-import { firestore } from '../firebaseConfig';
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+} from "@mui/material";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { firestore } from "../firebaseConfig";
 
 const MatchTable = () => {
   const [matches, setMatches] = useState([]);
@@ -18,7 +27,12 @@ const MatchTable = () => {
 
   return (
     <TableContainer component={Paper} sx={{ marginTop: 4, paddingX: 2 }}>
-      <Typography variant="h6" gutterBottom component="div" sx={{ paddingTop: 2 }}>
+      <Typography
+        variant="h6"
+        gutterBottom
+        component="div"
+        sx={{ paddingTop: 2 }}
+      >
         Match List
       </Typography>
       <Table>
@@ -33,6 +47,13 @@ const MatchTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
+          {matches.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={9} align="center" my={2}>
+                No data
+              </TableCell>
+            </TableRow>
+          )}
           {matches.map((match, index) => (
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
@@ -40,7 +61,13 @@ const MatchTable = () => {
               <TableCell>{match.awayClubName}</TableCell>
               <TableCell align="right">{match.homeGoals}</TableCell>
               <TableCell align="right">{match.awayGoals}</TableCell>
-              <TableCell align="right">{match.homeGoals > match.awayGoals ? 'Win' : match.homeGoals < match.awayGoals ? 'Lose' : 'Tie'}</TableCell>
+              <TableCell align="right">
+                {match.homeGoals > match.awayGoals
+                  ? "Win"
+                  : match.homeGoals < match.awayGoals
+                  ? "Lose"
+                  : "Tie"}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

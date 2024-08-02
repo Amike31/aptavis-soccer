@@ -17,6 +17,12 @@ const AddClubDialog = ({ open, onClose }) => {
   const [error, setError] = useState("");
 
   const handleAddClub = async () => {
+    const isAllFilled = name && city;
+    if (!isAllFilled) {
+      setError("Please fill all fields");
+      return;
+    }
+
     try {
       const clubsRef = collection(firestore, "clubs");
       const q = query(clubsRef, where("name", "==", name));
@@ -27,7 +33,9 @@ const AddClubDialog = ({ open, onClose }) => {
         return;
       }
 
-      await addDoc(clubsRef, { name, city });
+      const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+
+      await addDoc(clubsRef, { name: capitalizedName, city });
       setName("");
       setCity("");
       onClose();
